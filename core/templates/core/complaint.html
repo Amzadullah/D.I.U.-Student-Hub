@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint — DIU Student Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f4f6f9; }
+  .navbar { background: #fff; border-bottom: 1px solid #e8ecf0; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: #0f4c2a; text-decoration: none; }
+  .nav-logo { width: 36px; height: 36px; background: linear-gradient(135deg, #0f4c2a, #1a7a45); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+  .wrap { max-width: 620px; margin: 48px auto; padding: 0 20px; }
+  .page-intro { margin-bottom: 28px; }
+  .page-intro h1 { font-size: 26px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .page-intro p { font-size: 14px; color: #888; }
+  .dept-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+  .dept-card { background: white; border: 1px solid #e8ecf0; border-radius: 10px; padding: 12px; text-align: center; font-size: 12px; color: #555; }
+  .dept-card .dept-icon { font-size: 20px; margin-bottom: 4px; }
+  .dept-card .dept-name { font-weight: 600; color: #1a1a1a; font-size: 11px; }
+  .form-card { background: white; border-radius: 16px; border: 1px solid #e8ecf0; padding: 36px; }
+  .form-label { font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; display: block; }
+  .form-control { width: 100%; border: 1px solid #e8ecf0; border-radius: 10px; padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.15s; margin-bottom: 16px; }
+  .form-control:focus { border-color: #0f4c2a; box-shadow: 0 0 0 3px rgba(15,76,42,0.08); }
+  textarea.form-control { resize: vertical; min-height: 100px; }
+  .submit-btn { width: 100%; padding: 13px; background: #0f4c2a; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .submit-btn:hover { background: #0a3a20; }
+  .success-card { background: white; border-radius: 16px; border: 1px solid #e8ecf0; padding: 48px 36px; text-align: center; }
+  .success-icon { width: 72px; height: 72px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 20px; }
+  .success-card h2 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .success-card p { font-size: 14px; color: #888; margin-bottom: 20px; }
+  .dept-result { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 20px; font-size: 15px; font-weight: 600; color: #166534; margin-bottom: 24px; }
+  .btn-back { display: inline-block; padding: 11px 24px; background: #0f4c2a; color: white; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; }
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="{% url 'home' %}" class="nav-brand"><div class="nav-logo">🎓</div>DIU Student Hub</a>
+</nav>
+
+<div class="wrap">
+  {% if submitted %}
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h2>Complaint জমা হয়েছে!</h2>
+      <p>AI তোমার complaint বিশ্লেষণ করে সঠিক department এ পাঠিয়েছে।</p>
+      <div class="dept-result">→ {{ dept }}</div>
+      <a href="{% url 'home' %}" class="btn-back">Home এ ফিরে যাও</a>
+    </div>
+  {% else %}
+    <div class="page-intro">
+      <h1>📢 Complaint System</h1>
+      <p>সমস্যা লেখো — AI নিজেই বুঝবে কোন department এ পাঠাতে হবে।</p>
+    </div>
+
+    <div class="dept-grid">
+      <div class="dept-card"><div class="dept-icon">💻</div><div class="dept-name">IT Dept</div></div>
+      <div class="dept-card"><div class="dept-icon">📝</div><div class="dept-name">Exam Office</div></div>
+      <div class="dept-card"><div class="dept-icon">💰</div><div class="dept-name">Accounts</div></div>
+      <div class="dept-card"><div class="dept-icon">🏠</div><div class="dept-name">Provost Office</div></div>
+      <div class="dept-card"><div class="dept-icon">📚</div><div class="dept-name">Dept Head</div></div>
+      <div class="dept-card"><div class="dept-icon">🎓</div><div class="dept-name">Student Affairs</div></div>
+    </div>
+
+    <div class="form-card">
+      <form method="post">
+        {% csrf_token %}
+        <label class="form-label">তোমার নাম *</label>
+        <input type="text" name="name" class="form-control" placeholder="পুরো নাম" required>
+        <label class="form-label">Student ID *</label>
+        <input type="text" name="student_id" class="form-control" placeholder="যেমন: 221-15-1234" required>
+        <label class="form-label">সমস্যাটা বিস্তারিত লেখো *</label>
+        <textarea name="complaint_text" class="form-control" placeholder="যত বিস্তারিত লিখবে, AI তত ভালো route করতে পারবে..." required></textarea>
+        <button type="submit" class="submit-btn">AI দিয়ে Route করো ও জমা দাও →</button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIU Student Hub</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', sans-serif; }
+  body { background: #f4f6f9; margin: 0; }
+
+  .navbar {
+    background: #fff;
+    border-bottom: 1px solid #e8ecf0;
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f4c2a;
+    text-decoration: none;
+  }
+  .nav-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #0f4c2a, #1a7a45);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 18px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .nav-link:hover { background: #f0f4f0; color: #0f4c2a; }
+  .nav-cta {
+    background: #0f4c2a;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: #0a3a20; }
+
+  .hero {
+    background: linear-gradient(135deg, #0a3a20 0%, #1a7a45 60%, #22a05a 100%);
+    padding: 80px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    backdrop-filter: blur(10px);
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 36px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-hero-primary {
+    background: white;
+    color: #0f4c2a;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.15s;
+    border: none;
+  }
+  .btn-hero-primary:hover { background: #f0faf4; transform: translateY(-1px); color: #0f4c2a; }
+  .btn-hero-secondary {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.15s;
+    backdrop-filter: blur(10px);
+  }
+  .btn-hero-secondary:hover { background: rgba(255,255,255,0.2); color: white; }
+
+  .stats-bar {
+    background: white;
+    border-bottom: 1px solid #e8ecf0;
+    padding: 20px 32px;
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 700; color: #0f4c2a; }
+  .stat-label { font-size: 12px; color: #888; font-weight: 500; margin-top: 2px; }
+
+  .section { padding: 60px 32px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 600; color: #1a7a45; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-size: 30px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .section-sub { font-size: 15px; color: #666; margin-bottom: 40px; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+    border: 1px solid #e8ecf0;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0f4c2a, #22a05a);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: #c8e6d4; }
+  .feature-card:hover::after { transform: scaleX(1); }
+  .feature-icon-wrap {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .icon-green { background: #e8f5ee; }
+  .icon-blue { background: #e8f0fe; }
+  .icon-orange { background: #fef3e8; }
+  .feature-card h3 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .feature-card p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px; }
+  .feature-link { font-size: 13px; font-weight: 600; color: #0f4c2a; display: flex; align-items: center; gap: 4px; }
+
+  .notice-section {
+    background: white;
+    border-top: 1px solid #e8ecf0;
+    border-bottom: 1px solid #e8ecf0;
+    padding: 48px 32px;
+  }
+  .notice-inner { max-width: 1100px; margin: 0 auto; }
+  .notice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .notice-card {
+    border: 1px solid #e8ecf0;
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.15s;
+  }
+  .notice-card:hover { border-color: #1a7a45; }
+  .notice-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+  .tag-exam { background: #fef3e8; color: #b45309; }
+  .tag-notice { background: #e8f0fe; color: #1d4ed8; }
+  .tag-event { background: #f0fdf4; color: #15803d; }
+  .notice-card h5 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .notice-card p { font-size: 12px; color: #888; margin: 0; }
+
+  footer {
+    background: #0a3a20;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 28px;
+    font-size: 13px;
+  }
+  footer strong { color: white; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="{% url 'home' %}" class="nav-brand">
+    <div class="nav-logo">🎓</div>
+    DIU Student Hub
+  </a>
+  <div class="nav-links">
+    <a href="{% url 'lost_found' %}" class="nav-link">Lost & Found</a>
+    <a href="{% url 'ai_chat' %}" class="nav-link">AI Helper</a>
+    <a href="{% url 'complaint' %}" class="nav-link">Complaint</a>
+    <a href="{% url 'ai_chat' %}" class="nav-cta">চ্যাট শুরু করো →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✦ Daffodil International University</div>
+  <h1>তোমার University<br>Life সহজ হোক</h1>
+  <p>হারানো জিনিস খোঁজো, AI এর সাথে কথা বলো, সমস্যা জানাও — সব এক জায়গায়।</p>
+  <div class="hero-btns">
+    <a href="{% url 'ai_chat' %}" class="btn-hero-primary">🤖 AI Helper চালু করো</a>
+    <a href="{% url 'lost_found' %}" class="btn-hero-secondary">Lost & Found দেখো</a>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">{{ lost_count }}</div>
+    <div class="stat-label">সক্রিয় হারানো জিনিস</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">{{ found_count }}</div>
+    <div class="stat-label">ফেরত পাওয়া গেছে</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">AI সাহায্য পাওয়া যায়</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">বিনামূল্যে</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Features</div>
+  <div class="section-title">সব কিছু এক জায়গায়</div>
+  <div class="section-sub">DIU students দের জন্য তৈরি, DIU students দের দ্বারা।</div>
+
+  <div class="features-grid">
+    <a href="{% url 'lost_found' %}" class="feature-card">
+      <div class="feature-icon-wrap icon-green">🔍</div>
+      <h3>Lost & Found</h3>
+      <p>হারানো জিনিস post করো বা খোঁজো। ছবি সহ post করলে খুঁজে পাওয়া অনেক সহজ হয়।</p>
+      <div class="feature-link">সব posts দেখো →</div>
+    </a>
+    <a href="{% url 'ai_chat' %}" class="feature-card">
+      <div class="feature-icon-wrap icon-blue">🤖</div>
+      <h3>AI Panic Button</h3>
+      <p>নতুন student? ভয় নেই। যেকোনো প্রশ্ন করো — রুটিন, fees, CGPA, campus সব কিছু।</p>
+      <div class="feature-link">AI এর সাথে কথা বলো →</div>
+    </a>
+    <a href="{% url 'complaint' %}" class="feature-card">
+      <div class="feature-icon-wrap icon-orange">📢</div>
+      <h3>Smart Complaint</h3>
+      <p>সমস্যা লেখো — AI নিজেই বুঝবে এবং সঠিক department এ পাঠাবে। ঝামেলা নেই।</p>
+      <div class="feature-link">Complaint দাও →</div>
+    </a>
+  </div>
+</div>
+
+<div class="notice-section">
+  <div class="notice-inner">
+    <div class="section-label">Notice Board</div>
+    <div class="section-title">সাম্প্রতিক নোটিশ</div>
+    <div class="notice-grid">
+      <div class="notice-card">
+        <span class="notice-tag tag-exam">পরীক্ষা</span>
+        <h5>Mid-term Exam Routine প্রকাশিত</h5>
+        <p>Portal এ login করে দেখো · ২ দিন আগে</p>
+      </div>
+      <div class="notice-card">
+        <span class="notice-tag tag-notice">নোটিশ</span>
+        <h5>Semester Fee জমার শেষ তারিখ</h5>
+        <p>Late fee এড়াতে সময়মতো দাও · ৩ দিন আগে</p>
+      </div>
+      <div class="notice-card">
+        <span class="notice-tag tag-event">ইভেন্ট</span>
+        <h5>DIU AI Project Competition 2026</h5>
+        <p>Prize: ৫ লক্ষ টাকা · Deadline: April 20</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>DIU Student Hub</strong> · Daffodil International University · Made with ❤️ by a DIU Student
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dis
